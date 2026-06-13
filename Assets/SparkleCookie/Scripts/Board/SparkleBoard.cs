@@ -138,12 +138,25 @@ namespace SparkleCookie.Board
 
         // ----- Model -----
 
+        [Range(0f, 0.8f)]
+        [Tooltip("Chance a new tile copies a neighbour's animal, forming clusters so taps are responsive.")]
+        public float clusterBias = 0.5f;
+
         private void GenerateGrid()
         {
             grid = new int[rows, columns];
             for (int r = 0; r < rows; r++)
                 for (int c = 0; c < columns; c++)
-                    grid[r, c] = Random.Range(0, colorCount);
+                    grid[r, c] = PickClustered(r, c);
+        }
+
+        // Random animal, but biased to match an already-placed neighbour so the
+        // board has plenty of 2+ clusters to tap.
+        private int PickClustered(int r, int c)
+        {
+            if (c > 0 && grid[r, c - 1] >= 0 && Random.value < clusterBias) return grid[r, c - 1];
+            if (r > 0 && grid[r - 1, c] >= 0 && Random.value < clusterBias) return grid[r - 1, c];
+            return Random.Range(0, colorCount);
         }
 
         public void OnTileClicked(int r, int c)
@@ -153,7 +166,13 @@ namespace SparkleCookie.Board
 
             var group = new List<Vector2Int>();
             FloodFill(r, c, grid[r, c], group, new bool[rows, columns]);
-            if (group.Count < minMatch) return;
+            if (group.Count < minMatch)
+            {
+                Debug.Log("[SparkleBoard] tap (" + r + "," + c + ") registered - group of " +
+                          group.Count + " is too small (need " + minMatch + "+ adjacent).");
+                return;
+            }
+            Debug.Log("[SparkleBoard] tap (" + r + "," + c + ") cleared " + group.Count + " animals.");
 
             busy = true;
             int gained = group.Count * group.Count * 10;
@@ -198,7 +217,14 @@ namespace SparkleCookie.Board
                         write--;
                     }
                 }
-                for (int r = write; r >= 0; r--) grid[r, c] = Random.Range(0, colorCount);
+                for (int r = write; r >= 0; r--)
+                {
+                    // Bias refills to match the tile below so fresh clusters keep forming.
+                    if (r + 1 < rows && grid[r + 1, c] >= 0 && Random.value < clusterBias)
+                        grid[r, c] = grid[r + 1, c];
+                    else
+                        grid[r, c] = Random.Range(0, colorCount);
+                }
             }
         }
 
