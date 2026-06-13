@@ -1,0 +1,116 @@
+# =============================================================================
+# Sparkle Cookie — CODE-ONLY repository
+# -----------------------------------------------------------------------------
+# This repo intentionally tracks ONLY our custom code, data, and documentation.
+# It does NOT track the licensed third-party asset packs (PuzzleMatchKit,
+# GuiPackAnimalWorld) or any binary art/audio. A fresh clone will NOT build
+# until those packs are re-imported locally — see docs/SETUP.md. This is by
+# design, to avoid redistributing licensed assets.
+# =============================================================================
+
+# ---- Unity generated / transient ----
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+.vs/
+.vsconfig
+.gradle/
+ExportedObj/
+crashlytics-build.properties
+
+# ---- IDE / solution files ----
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ---- OS noise ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Licensed third-party asset packs (DO NOT COMMIT) ----
+/Assets/PuzzleMatchKit/
+/Assets/PuzzleMatchKit.meta
+/Assets/GuiPackAnimalWorld/
+/Assets/GuiPackAnimalWorld.meta
+
+# ---- Default Unity / re-importable content (not ours) ----
+/Assets/Screenshots/
+/Assets/Screenshots.meta
+/Assets/TextMesh Pro/
+/Assets/TextMesh Pro.meta
+/.vscode/
+/Assets/Scenes/
+/Assets/Scenes.meta
+/Assets/Settings/
+/Assets/Settings.meta
+/Assets/TutorialInfo/
+/Assets/TutorialInfo.meta
+/Assets/Readme.asset
+/Assets/Readme.asset.meta
+/Assets/InputSystem_Actions.inputactions
+/Assets/InputSystem_Actions.inputactions.meta
+
+# ---- ALL binary art / audio / models (belt-and-suspenders, anywhere) ----
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.tga
+*.psd
+*.ai
+*.svg
+*.exr
+*.hdr
+*.cubemap
+*.fbx
+*.obj
+*.blend
+*.dae
+*.3ds
+*.max
+*.ma
+*.mb
+*.wav
+*.mp3
+*.ogg
+*.aiff
+*.flac
+*.ttf
+*.otf
+*.mp4
+*.mov
+*.webm
+
+# ---- Re-include OUR custom folder (code + data only) ----
+!/Assets/SparkleCookie/
+!/Assets/SparkleCookie/**
+
+# Within our folder, still keep binaries out of git (recipes are documented in text)
+/Assets/SparkleCookie/**/*.png
+/Assets/SparkleCookie/**/*.jpg
+/Assets/SparkleCookie/**/*.fbx
+/Assets/SparkleCookie/**/*.wav
+/Assets/SparkleCookie/**/*.mp3
+/Assets/SparkleCookie/**/*.ttf
+/Assets/SparkleCookie/**/*.otf
